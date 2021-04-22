@@ -181,3 +181,24 @@ img {
     width: 4rem;
     height: 4rem;
 }
+
+@media only screen and (max-width: 1050px) {
+    #ui {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto;
+    }
+
+    .turnIndicatorContainer {
+        margin-bottom: 2rem;
+        width: 32rem;
+    }
+
+    #boardColumn {
+        grid-row: 2;
+    }
+
+    #prefColumn {
+        grid-row: 1;
+    }
+}
