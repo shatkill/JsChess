@@ -236,6 +236,7 @@ img {
 
     .marker {
         line-height: calc(100vw / 9);
+        font-size: 70px;
     }
 
     button {
