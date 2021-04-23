@@ -1,6 +1,8 @@
 body {
     background-color: #121212;
     color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
 /* chess board styling */
@@ -127,7 +129,7 @@ body {
     color: #e68540;
     font-size: xx-large;
     text-align: center;
-    margin-top: 12px;
+    line-height: 4rem;
     position: relative;
     z-index: 10;
     cursor: pointer;
@@ -190,8 +192,10 @@ img {
     }
 
     .turnIndicatorContainer {
-        margin-bottom: 2rem;
-        width: 32rem;
+        margin-bottom: calc(100vw / 18);
+        padding: calc(100vw / 18);
+        width: auto;
+
     }
 
     #boardColumn {
@@ -200,5 +204,46 @@ img {
 
     #prefColumn {
         grid-row: 1;
+    }
+
+    img {
+        width: calc(100vw / 9);
+        height: calc(100vw / 9);
+    }
+
+    .field {
+        width: calc(100vw / 9);
+        height: calc(100vw / 9);
+    }
+
+    .notationCol {
+        line-height: calc(100vw / 9);
+    }
+
+    .notationRow {
+        line-height: calc(100vw / 18);
+    }
+
+    #gameboard {
+        grid-template-columns: calc(100vw / 18) repeat(8, calc(100vw / 9));
+        grid-template-rows: repeat(8, calc(100vw / 9)) calc(100vw / 18) ;
+    }
+
+    #spacer {
+        padding: calc(100vw / 18) calc(100vw / 18) 0 0;
+        width: auto;
+    }
+
+    .marker {
+        line-height: calc(100vw / 9);
+    }
+
+    button {
+        font-size: xx-large;
+        padding: 1rem;
+    }
+
+    #title {
+        font-size: 60px;
     }
 }
