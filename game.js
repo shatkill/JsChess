@@ -43,8 +43,8 @@ function reset() {
     location.reload();
 }
 
-let playMode = "h";
-let humansColor = "";
+let playMode = "c";
+let humansColor = "w";
 
 function setHumanMode() {
 
