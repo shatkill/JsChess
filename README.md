@@ -8,5 +8,4 @@ Implementation of chess game in a vanilla JS enviroment.
 
 ## To be implemented
 - en passant rule
-- responsive design
 - underpromotion
