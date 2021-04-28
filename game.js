@@ -10,6 +10,8 @@ let whitesTurn = true;
 let whitePawnSwapCounter = "I";
 let blackPawnSwapCounter = "I";
 
+let enPassantPawn = null;
+
 /*------castling rights-----*/
 let whiteCanCastle = true;
 let blackCanCastle = true;
@@ -251,6 +253,36 @@ function movePiece(newField) {
             whiteCanCastle = false;
         } else if(bKRookMoved && bQRookMoved && blackCanCastle){
             blackCanCastle = false;
+        }
+
+        /* catch piece if en passant move is made */
+        if(enPassantPawn) {
+            if(pieceOnFocus.id.indexOf('wp') === 0) {
+                if(newFieldPosition.col === enPassantPawn.col && newFieldPosition.row === enPassantPawn.row + 1) {
+                    
+                    let catchedPawn = document.getElementById(board[enPassantPawn.row][enPassantPawn.col]);
+    
+                    catchedPawn.remove();
+    
+                    board[enPassantPawn.row][enPassantPawn.col] = "";
+                }
+            } else if(pieceOnFocus.id.indexOf('bp') === 0) {
+                if(newFieldPosition.col === enPassantPawn.col && newFieldPosition.row === enPassantPawn.row - 1) {
+    
+                    let catchedPawn = document.getElementById(board[enPassantPawn.row][enPassantPawn.col]);
+    
+                    catchedPawn.remove();
+    
+                    board[enPassantPawn.row][enPassantPawn.col] = "";
+                }
+            }
+        }
+        
+        /* --------update en passant pawn if necessary------------*/
+        if(pieceOnFocus.id.indexOf('p') === 1 && Math.abs(piecePositionOnBoard.row - newFieldPosition.row) === 2) {
+            enPassantPawn = newFieldPosition;
+        } else {
+            enPassantPawn = null;
         }
         
         // put piece to move on new position
@@ -551,6 +583,19 @@ function getLegalMoves(piecePosition, pieceType, activeBoard) {
                                 legalMoves.push(position);
 
                             }
+                        } else if (enPassantPawn){
+                            /* check if diagonal en passant move is legal */
+                            if(position.col === enPassantPawn.col && position.row === enPassantPawn.row + 1) {
+
+                                if(chessCheck) {
+
+                                    // with this move player would still be in chess position or set self in chess
+                                    if(makeMoveAndCheckIfChess(piecePosition, position, playerColor)) {
+                                        continue;
+                                    }
+                                }
+                                legalMoves.push(position);
+                            }
                         } else {
                             continue;
                         }
@@ -577,8 +622,6 @@ function getLegalMoves(piecePosition, pieceType, activeBoard) {
 
         case "bp":
         
-        // implement en passant
-
             if(piecePosition.row === 6) {
 
                 // diagonal catches
@@ -661,6 +704,19 @@ function getLegalMoves(piecePosition, pieceType, activeBoard) {
                                 }
                                 legalMoves.push(position);
 
+                            }
+                        } else if (enPassantPawn){
+                            /* check if diagonal en passant move is legal */
+                            if(position.col === enPassantPawn.col && position.row === enPassantPawn.row - 1) {
+
+                                if(chessCheck) {
+
+                                    // with this move player would still be in chess position or set self in chess
+                                    if(makeMoveAndCheckIfChess(piecePosition, position, playerColor)) {
+                                        continue;
+                                    }
+                                }
+                                legalMoves.push(position);
                             }
                         } else {
                             continue;

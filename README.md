@@ -7,5 +7,4 @@ Implementation of chess game in a vanilla JS enviroment.
 - to be improved
 
 ## To be implemented
-- en passant rule
 - underpromotion
